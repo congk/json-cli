@@ -2,7 +2,7 @@
 
 const program = require('commander');
 const methods = ['verify', 'format', 'uglify', 'edit'];
-const trace = require('./lib/trace');
+const trace = require('./lib/util/trace');
 const fs = require('fs');
 
 program
@@ -28,7 +28,8 @@ const done = methods.some((method) => {
     let content = exits ? fs.readFileSync(path, 'utf8') : "{}";
     try {
         content = JSON.parse(content);
-        require(`./lib/${method}`)(content, path);
+        require(`./lib/method/${method}`)(content, path);
+        trace('success');
     } catch (err) {
         trace(err);
     }
