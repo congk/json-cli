@@ -26,8 +26,6 @@ const done = methods.some((method) => {
 
     if (!exits && !isEdit) {
         trace(`No such file on the path: ${path}`);
-    } else if (exits && isEdit) {
-        trace(`File exists on the path: ${path}`);
     } else {
         let content = null;
         if (exits) {
