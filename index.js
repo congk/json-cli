@@ -1,22 +1,20 @@
 "use strict";
 
 const program = require('commander');
-const methods = ['verify', 'format', 'uglify', 'edit', 'make'];
+const methods = ['verify', 'format', 'uglify', 'edit'];
 const trace = require('./lib/util/trace');
 const fs = require('fs');
 
 program
     .version('1.0.0')
     .usage('[options] <path>')
+    .description('json编辑工具')
     .option('-v, --verify <path>', '验证json文件格式是否正确')
-    .option('-m --make <path>', '生成json文件')
-    .option('-t, --type [rootType]', '指定生成json文件的根节点类型，可用类型包括\'obj\'或\'arr\'', 'obj')
-    .option('-e, --edit <path>', '编辑json文件')
+    .option('-e, --edit <path>', '编辑|创建json文件')
     .option('-f, --format <path>', '格式化json文件并保存')
-    .option('-u, --uglify <path>', '压缩json文件并保存');
-
-
-program.parse(process.argv);
+    .option('-u, --uglify <path>', '压缩json文件并保存')
+    .option('-t, --type [rootType]', '指定生成json文件的根节点类型，可用类型包括\'obj\'或\'arr\'', 'obj')
+    .parse(process.argv);
 
 const done = methods.some((method) => {
     const path = program[method];
@@ -30,11 +28,15 @@ const done = methods.some((method) => {
         trace(`No such file on the path: ${path}`);
     } else if (exits && isMake) {
         trace(`File exists on the path: ${path}`);
-    } else if (isMake) {
-        trace(`make file type: ${program.type}`);
     } else {
+        let content = null;
+        if (exits) {
+            content = JSON.parse(fs.readFileSync(path, 'utf8'));
+        } else {
+            content = program.type === 'obj' ? {} : [];
+        }
         try {
-            require(`./lib/method/${method}`)(JSON.parse(fs.readFileSync(path, 'utf8')), path);
+            require(`./lib/method/${method}`)(content, path);
         } catch (err) {
             trace(err);
         }
