@@ -1,0 +1,14 @@
+{
+  "name": "json-cli",
+  "version": "1.0.0",
+  "description": "json验证及编辑工具",
+  "author": "小孔丞相",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.12.2",
+    "inquirer": "^4.0.1"
+  },
+  "bin": {
+    "json": "bin/json-cli.js"
+  }
+}
