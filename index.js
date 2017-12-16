@@ -1,8 +1,8 @@
 "use strict";
 
-const fs = require('fs');
 const program = require('commander');
-const inquirer = require('inquirer');
+const child_process = require('child_process');
+const trace = require('./lib/trace');
 
 program
     .version('1.0.0')
@@ -14,11 +14,12 @@ program
 program.parse(process.argv);
 
 if (program.verify) {
-    console.log(`验证文件：${program.verify}`);
+    trace(`验证文件：${program.verify}`);
+    require('./lib/verify')(program.verify);
 } else if (program.edit) {
-    console.log(`编辑文件: ${program.edit}`);
+    trace(`编辑文件: ${program.edit}`);
 } else if (program.delete) {
-    console.log(`删除文件: ${program.delete}`);
+    trace(`删除文件: ${program.delete}`);
 } else {
     program.outputHelp();
 }
