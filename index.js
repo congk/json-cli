@@ -22,11 +22,11 @@ const done = methods.some((method) => {
         return false;
     }
     const exits = fs.existsSync(path);
-    const isMake = method === 'make';
+    const isEdit = method === 'edit';
 
-    if (!exits && !isMake) {
+    if (!exits && !isEdit) {
         trace(`No such file on the path: ${path}`);
-    } else if (exits && isMake) {
+    } else if (exits && isEdit) {
         trace(`File exists on the path: ${path}`);
     } else {
         let content = null;
