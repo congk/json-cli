@@ -1,25 +1,40 @@
 "use strict";
 
 const program = require('commander');
-const child_process = require('child_process');
+const methods = ['verify', 'format', 'uglify', 'edit'];
 const trace = require('./lib/trace');
+const fs = require('fs');
 
 program
     .version('1.0.0')
     .usage('[options] <path>')
     .option('-v, --verify <path>', '验证json文件格式是否正确')
     .option('-e, --edit <path>', '编辑json文件，若文件不存在则在指定路径下新建')
-    .option('-d, --delete <path>', '删除json文件');
+    .option('-f, --format <path>', '格式化json文件并保存')
+    .option('-u, --uglify <path>', '压缩json文件并保存');
 
 program.parse(process.argv);
 
-if (program.verify) {
-    trace(`验证文件：${program.verify}`);
-    require('./lib/verify')(program.verify);
-} else if (program.edit) {
-    trace(`编辑文件: ${program.edit}`);
-} else if (program.delete) {
-    trace(`删除文件: ${program.delete}`);
-} else {
+const done = methods.some((method) => {
+    const path = program[method];
+    if (!path) {
+        return false;
+    }
+    const exits = fs.existsSync(path);
+    if (!exits && method !== 'edit') {
+        trace(`No such file on the path: ${path}`);
+        return true;
+    }
+    let content = exits ? fs.readFileSync(path, 'utf8') : "{}";
+    try {
+        content = JSON.parse(content);
+        require(`./lib/${method}`)(content, path);
+    } catch (err) {
+        trace(err);
+    }
+    return true;
+});
+
+if (!done) {
     program.outputHelp();
 }
