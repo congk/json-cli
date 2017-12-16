@@ -4,29 +4,21 @@ const fs = require('fs');
 const program = require('commander');
 const inquirer = require('inquirer');
 
-if (process.argv.length === 2) {
-    process.argv.push('-h');
-}
-
-program.version('1.0.0')
-    .usage('<path> 编辑json文件')
-    .action(edit);
-
-// 编辑json文件，若不存在，则新建一个json文件
-// program.command('edit <path>')
-//     .description('编辑json文件')
-//     .action(edit);
-
-// 验证
-program.command('verify <path>')
-    .description('验证json文件格式是否有效')
-    .action(verify);
-
-function verify(path) {
-    console.log(`verify: ${path}`);
-}
-function edit(path) {
-    onsole.log(`edit: ${path}`);
-}
+program
+    .version('1.0.0')
+    .usage('[options] <path>')
+    .option('-v, --verify <path>', '验证json文件格式是否正确')
+    .option('-e, --edit <path>', '编辑json文件，若文件不存在则在指定路径下新建')
+    .option('-d, --delete <path>', '删除json文件');
 
 program.parse(process.argv);
+
+if (program.verify) {
+    console.log(`验证文件：${program.verify}`);
+} else if (program.edit) {
+    console.log(`编辑文件: ${program.edit}`);
+} else if (program.delete) {
+    console.log(`删除文件: ${program.delete}`);
+} else {
+    program.outputHelp();
+}
