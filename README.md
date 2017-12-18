@@ -9,9 +9,6 @@ npm i -g ./
 ```
 
 # usage
-```bash
-json [-h]
-```
 ```
   Usage: json [options] <path>
 
