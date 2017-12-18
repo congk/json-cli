@@ -1,9 +1,15 @@
-"use strict";
 
-const program = require('commander');
-const methods = ['verify', 'format', 'uglify', 'edit'];
-const trace = require('./lib/util/trace');
+
 const fs = require('fs');
+const program = require('commander');
+const trace = require('./lib/util/trace');
+const verify = require('./lib/method/verify');
+const format = require('./lib/method/format');
+const uglify = require('./lib/method/uglify');
+const edit = require('./lib/method/edit');
+
+const methods = ['verify', 'format', 'uglify', 'edit'];
+const handles = [verify, format, uglify, edit];
 
 program
     .version('1.0.0')
@@ -16,7 +22,7 @@ program
     .option('-t, --type [rootType]', '指定生成json文件的根节点类型，可用类型包括\'obj\'或\'arr\'', 'obj')
     .parse(process.argv);
 
-const done = methods.some((method) => {
+const done = methods.some((method, index) => {
     const path = program[method];
     if (!path) {
         return false;
@@ -34,7 +40,7 @@ const done = methods.some((method) => {
             content = program.type === 'obj' ? {} : [];
         }
         try {
-            require(`./lib/method/${method}`)(content, path);
+            handles[index](content, path);
         } catch (err) {
             trace(err);
         }

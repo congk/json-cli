@@ -1,4 +1,4 @@
-# json-cli json文件编辑及验证工具
+# json-cli json文件编辑及验证工具[编辑功能开发中...]
 
 # install
 ```bash
