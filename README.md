@@ -32,6 +32,7 @@ json [-h]
 
 # edit
 ```bash
+json -e test/test.json
 test/test.json > -h
 ```
 ```bash
