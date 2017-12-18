@@ -4,6 +4,7 @@
   "description": "json验证及编辑工具",
   "author": "小孔丞相",
   "license": "MIT",
+  "repository": "congk/json-cli",
   "dependencies": {
     "commander": "^2.12.2",
     "inquirer": "^4.0.1"
