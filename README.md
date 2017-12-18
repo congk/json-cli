@@ -2,8 +2,8 @@
 
 # install
 ```bash
-git clone <this rep> <path>
-cd path
+git clone git@github.com:congk/json-cli.git
+cd json-cli
 yarn install
 npm i -g ./
 ```
