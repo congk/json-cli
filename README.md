@@ -1,5 +1,7 @@
 # json文件编辑及验证工具
 
+![演示图片](/static/2017-12-21%2017_55_14.gif?raw=true)
+
 ### install
 ```bash
 git clone git@github.com:congk/json-cli.git
@@ -68,7 +70,3 @@ test/test.json > -h
         5. 赋值操作时，右值可为多个键，左值必须只能是一个
         6. 左值不能有单引号或双引号
 ```
-
-### example
-
-![演示图片](/static/2017-12-21%2017_55_14.gif?raw=true)
