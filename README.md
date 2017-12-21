@@ -71,4 +71,4 @@ test/test.json > -h
 
 ### example
 
-![演示图片](/congk/json-cli/blob/master/static/2017-12-21%2017_55_14.gif?raw=true)
+![演示图片](/static/2017-12-21%2017_55_14.gif?raw=true)
