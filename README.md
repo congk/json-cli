@@ -71,6 +71,7 @@ test/test.json > -h
 
 ### example
 
+![图片演示](//github.com/congk/json-cli/blob/master/static/2017-12-21%2017_55_14.gif)
 ```
 # 生成一个新的json文件，根节点为数组[]
 coderk$ json -e new.json -t arr
