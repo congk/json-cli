@@ -1,6 +1,6 @@
-# json-cli json文件编辑及验证工具[编辑功能开发中...]
+# json文件编辑及验证工具
 
-# install
+### install
 ```bash
 git clone git@github.com:congk/json-cli.git
 cd json-cli
@@ -8,7 +8,7 @@ yarn install
 npm i -g ./
 ```
 
-# usage
+### usage
 ```
   Usage: json [options] <path>
 
@@ -27,7 +27,7 @@ npm i -g ./
 
 ```
 
-# edit
+### edit
 ```bash
 json -e test/test.json
 test/test.json > -h
@@ -67,4 +67,99 @@ test/test.json > -h
         4. 多个键拷贝值：key1 key2 == key3
         5. 赋值操作时，右值可为多个键，左值必须只能是一个
         6. 左值不能有单引号或双引号
+```
+
+### example
+
+```
+# 生成一个新的json文件，根节点为数组[]
+coderk$ json -e new.json -t arr
+# 输出
+[]
+```
+```
+# 输入‘1 = {}’进行赋值
+new.json > 1 = {}
+# print
+setHandle ====> key: 1, done!
+[
+  null,
+  {}
+]
+```
+```
+# 再赋值 
+new.json > 1.name = 'congk'
+setHandle ====> key: 1.name, done!
+[
+  null,
+  {
+    "name": "congk"
+  }
+]
+new.json > 0 = 1
+setHandle ====> key: 0, done!
+[
+  1,
+  {
+    "name": "congk"
+  }
+]
+```
+```
+# 将数组的第4个元素赋值为一个新数组
+new.json > 3 = []
+setHandle ====> key: 3, done!
+[
+  1,
+  {
+    "name": "congk"
+  },
+  null,
+  []
+]
+```
+```
+# 对新生成的数组的第4个元素赋值为5
+new.json > 3.3 = 5
+setHandle ====> key: 3.3, done!
+[
+  1,
+  {
+    "name": "congk"
+  },
+  null,
+  [
+    null,
+    null,
+    null,
+    5
+  ]
+]
+```
+```
+# 拷贝值，将数组第一个元素的name属性值拷贝给索引为3的数组的第2个索引值
+new.json > 3.2 == 1.name
+setHandle ====> key: 3.2, done!
+[
+  1,
+  {
+    "name": "congk"
+  },
+  null,
+  [
+    null,
+    null,
+    "congk",
+    5
+  ]
+]
+```
+```
+# 存储文件
+new.json > -s
+# 退出编辑
+new.json > -q
+bye!
+coderk$ 
 ```
