@@ -7,7 +7,7 @@
   "repository": "congk/json-cli",
   "dependencies": {
     "commander": "^2.12.2",
-    "inquirer": "^4.0.1"
+    "inquirer": "^6.5.0"
   },
   "bin": {
     "json": "bin/json-cli.js"
